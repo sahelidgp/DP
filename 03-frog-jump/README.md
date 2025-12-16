@@ -14,6 +14,64 @@ Jumping from step i to step j (where j = i + 1 or i + 2) costs energy equal to a
 
 Calculate and return the minimum total energy required for the frog to go from step 0 to step n - 1.
 
+
+I became curious to find the optimal path 
+
+here is the code
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+
+  int find_cost(vector<int>&height,int idx,vector<int>&dp,vector<int>&parent){
+      if(idx == 0)return dp[0] = 0;
+      if(dp[idx] != -1)return dp[idx];
+      int left = find_cost(height,idx-1,dp,parent)+abs(height[idx]-height[idx-1]);
+      
+      int right = 1e9;
+      if(idx>1)
+      right = find_cost(height,idx-2,dp,parent)+abs(height[idx]-height[idx-2]);
+      int mini = min(left,right);
+      if(left == mini)
+      parent[idx] = (idx-1);
+      else parent[idx] = (idx-2);
+      return dp[idx] = mini;
+  }
+    int main(){
+        vector<int> height = {30,10,60,10,60,50};
+        // Code here
+        int n = height.size();
+        vector<int>dp(n,-1);
+        vector<int> parent(n,-1);
+        cout<< find_cost(height,n-1,dp,parent)<<endl;
+        
+        for(int i=0;i<n;i++){
+            cout<<dp[i]<<" ";
+        }
+        cout<<endl;
+        for(int i=0;i<parent.size();i++){
+            cout<<parent[i]<<" ";
+        }
+        
+        vector<int>path;
+        int id = n-1;
+        while(id != -1){
+            path.push_back(id);
+            id = parent[id];
+        }
+        reverse(path.begin(),path.end());
+        cout<<endl;
+        for(int i=0;i<path.size();i++){
+            cout<<path[i]<<" ";
+        }
+        
+        return 0;
+    }
+
+```
+
+
+
+
 # Recursion
 ```c++
 
