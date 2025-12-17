@@ -66,10 +66,130 @@ using namespace std;
         
         return 0;
     }
-
+```
+# if we want to find one optimal path
+```c++
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+    vector<int>heights = {10,20,10,80,50,30,60,90};
+    int n = heights.size();
+    int k;
+    cout<<"\nEnter the value of k : ";
+    cin>>k;
+    vector<int>dp(n);
+    dp[0] = 0;
+   vector<int>parent(n,-1);
+   
+    for(int i=1;i<n;i++){
+         int mini = 1e9;
+         int minj = -1;
+        for(int j=1;j<=k;j++){
+            if(i-j >= 0){
+                int cost = dp[i-j]+abs(heights[i]-heights[i-j]);
+                if(cost < mini){
+                    mini = cost;
+                    minj = i-j;
+                }
+            }
+        }
+        parent[i] = minj;
+        dp[i] = mini;
+    }
+    for(int i=0;i<n;i++){
+        cout<<dp[i]<<" ";
+    }
+    cout<<endl;
+    
+    for(int i=0;i<n;i++){
+        cout<<parent[i]<<" ";
+    }
+    cout<<endl;
+    vector<int>path;
+    int id = n-1;
+    while(id != -1){
+        path.push_back(id);
+        id = parent[id];
+    }
+    reverse(path.begin(),path.end());
+    for(int i=0;i<path.size();i++){
+        cout<<path[i]<<" ";
+    }
+    cout<<endl;
+    cout<<endl<<dp[n-1];
+}
 ```
 
+# This is the code for finding all possible optimal path
+```c++
+#include <bits/stdc++.h>
+using namespace std;
 
+vector<vector<int>> allPaths;
+vector<int> temp;
+
+void dfs(int node, vector<vector<int>>& parent) {
+    if (node == -1) {
+        vector<int> path = temp;
+        reverse(path.begin(), path.end());
+        allPaths.push_back(path);
+        return;
+    }
+
+    for (int p : parent[node]) {
+        temp.push_back(node);
+        dfs(p, parent);
+        temp.pop_back();
+    }
+}
+
+int main() {
+    vector<int> heights = {10,20,10,80,50,30,60,90};
+    int n = heights.size();
+    int k;
+
+    cout << "Enter k: ";
+    cin >> k;
+
+    vector<int> dp(n, 1e9);
+    vector<vector<int>> parent(n);
+
+    dp[0] = 0;
+    parent[0].push_back(-1);
+
+    for (int i = 1; i < n; i++) {
+        for (int j = 1; j <= k; j++) {
+            if (i - j >= 0) {
+                int cost = dp[i - j] + abs(heights[i] - heights[i - j]);
+
+                if (cost < dp[i]) {
+                    dp[i] = cost;
+                    parent[i].clear();
+                    parent[i].push_back(i - j);
+                }
+                else if (cost == dp[i]) {
+                    parent[i].push_back(i - j);
+                }
+            }
+        }
+    }
+
+    // Print minimum energy
+    cout << "\nMinimum energy = " << dp[n - 1] << "\n\n";
+
+    // Backtrack all paths
+    dfs(n - 1, parent);
+
+    // Print all optimal paths
+    cout << "All optimal paths:\n";
+    for (auto &path : allPaths) {
+        for (int x : path)
+            cout << x << " ";
+        cout << endl;
+    }
+}
+
+```
 
 
 # Recursion
