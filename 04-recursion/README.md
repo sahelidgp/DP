@@ -69,3 +69,69 @@ int main()
     return 0;
 }
 ```
+# Print any subsequence with sum k
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+
+void print(vector<int>&list){
+    if(list.size() == 0)
+    {
+        cout<<"{}"<<endl;
+        return;
+    }
+    for(int i=0;i<list.size();i++)cout<<list[i]<<" ";
+    cout<<endl;
+}
+bool subsequence(int ind,vector<int>&list,vector<int>&arr,int sum,int k){
+    int n = arr.size();
+    if(ind >= n){
+        if(sum == k) {
+            print(list);
+           return true;
+        }else return false;
+    }
+    list.push_back(arr[ind]);
+    sum += arr[ind];
+    if(subsequence(ind+1,list,arr,sum,k) == true)return true;
+    sum -= arr[ind],
+    list.pop_back();
+    if(subsequence(ind+1,list,arr,sum,k) == true)return true;
+    return false;
+}
+int main()
+{
+    vector<int>arr = {1,2,1};
+    int k = 2;
+    vector<int>list;
+    subsequence(0,list,arr,0,k);
+    return 0;
+}
+```
+# Count number of subsequences with sum k
+
+```c++
+#include <bits/stdc++.h>
+using namespace std;
+int subsequence(int ind,vector<int>&arr,int sum,int k){
+    int n = arr.size();
+    if(ind >= n){
+        if(sum == k) 
+           return 1;
+         else return 0;
+        }
+    sum += arr[ind];
+    int l = subsequence(ind+1,arr,sum,k);
+    sum -= arr[ind];
+    int r = subsequence(ind+1,arr,sum,k);
+    return l+r;
+}
+int main()
+{
+    vector<int>arr = {1,2,1,1};
+    int k = 2;
+    int cnt = 0;
+    cout<<subsequence(0,arr,0,k);
+    return 0;
+}
+```
