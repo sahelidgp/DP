@@ -155,7 +155,7 @@ int ninjaTraining(int n, vector<vector<int>> &points)
             dp[day][last] = maxi;
             }
         }
-        return max(max(dp[n-1][0],dp[n-1][1]),dp[n-1][2]);
+        return dp[n-1][3];
 }
 
 ```
