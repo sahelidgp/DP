@@ -128,4 +128,34 @@ int main()
 # Tabulation
 ```c++
 
+int ninjaTraining(int n, vector<vector<int>> &points)
+{
+    // Write your code here.  
+        vector<vector<int>>dp(n,vector<int>(4,0));
+        for(int last=0;last<4;last++){
+            int maxi = 0;
+            for(int task=0;task<3;task++){
+                
+                if(task!=last){
+                    maxi = max(maxi,points[0][task]);
+                }
+            }
+            dp[0][last] = maxi;
+        }
+
+        for(int day=1;day<n;day++){
+            for(int last=0;last<4;last++){
+                  int maxi = 0;
+                for(int task=0;task<3;task++){
+                  
+                    if(task!=last){
+                        maxi = max(maxi,dp[day-1][task]+points[day][task]);
+                    }
+                }
+            dp[day][last] = maxi;
+            }
+        }
+        return max(max(dp[n-1][0],dp[n-1][1]),dp[n-1][2]);
+}
+
 ```
