@@ -1,4 +1,8 @@
 # [Problem Link](https://leetcode.com/problems/longest-increasing-subsequence/description/)
+tc: O(n logn)
+sc : O(n)
+this method will only work to calculate the length of the lis
+the temp will not store the lis
 
 # Code❤️
 ```c++
