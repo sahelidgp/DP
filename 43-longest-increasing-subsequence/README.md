@@ -84,7 +84,10 @@ public:
 };
 ```
 
-# alternative method:
+# algorithmic approach:
+
+Tc: O(n^2)
+Sc: O(n)
 ```c++
 class Solution {
 public:

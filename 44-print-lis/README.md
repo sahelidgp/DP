@@ -1,7 +1,7 @@
 # [Problem Link](https://www.geeksforgeeks.org/problems/printing-longest-increasing-subsequence/1)
 
 # Code❤️
-
+tc: O(n^2) + O(length of lis)
 ```c++
 class Solution {
   public:
