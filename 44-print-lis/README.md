@@ -13,7 +13,7 @@ class Solution {
         vector<int>hash(n);
         int maxi = 1;
         int max_ind = 0;
-        for(int ind=0;ind<n;ind++){
+        for(int ind=1;ind<n;ind++){
             hash[ind] = ind;
             for(int prev = 0;prev<ind;prev++){
                 if(nums[prev]<nums[ind] && dp[prev]+1>dp[ind]){
